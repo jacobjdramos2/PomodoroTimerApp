@@ -2,6 +2,7 @@
  * Define REST endpoints, e.g., /start, /stop, /pause
  * Holds the REST controllers that handle incoming HTTP requests and send responses.
  */
+package com.example.pomodoro.controller;
 
 public class TimerController {
 
