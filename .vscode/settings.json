@@ -1,4 +1,7 @@
 {
     "java.compile.nullAnalysis.mode": "automatic",
-    "java.configuration.updateBuildConfiguration": "automatic"
+    "java.configuration.updateBuildConfiguration": "automatic",
+
+    "java.debug.settings.console": "integratedTerminal",
+    "terminal.integrated.defaultProfile.windows": "Command Prompt"
 }
