@@ -1,0 +1,7 @@
+-------------------------------------------------------------------------------
+Test set: com.example.pomodoro.controller.TimerControllerTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.159 s <<< FAILURE! - in com.example.pomodoro.controller.TimerControllerTest
+com.example.pomodoro.controller.TimerControllerTest  Time elapsed: 2.159 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.lang.Class.getName()" because "found" is null
+

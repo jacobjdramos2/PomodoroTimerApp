@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.example.pomodoro.model.TimerTest" time="0.119" tests="7" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.example.pomodoro.controller.TimerControllerTest" time="2.159" tests="1" errors="1" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -52,11 +52,13 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="testStopTimer" classname="com.example.pomodoro.model.TimerTest" time="0.052"/>
-  <testcase name="testPauseTimer" classname="com.example.pomodoro.model.TimerTest" time="0.001"/>
-  <testcase name="testResumeTimer" classname="com.example.pomodoro.model.TimerTest" time="0.001"/>
-  <testcase name="testUpdateStatus" classname="com.example.pomodoro.model.TimerTest" time="0.001"/>
-  <testcase name="testInitialState" classname="com.example.pomodoro.model.TimerTest" time="0.001"/>
-  <testcase name="testResetTimer" classname="com.example.pomodoro.model.TimerTest" time="0"/>
-  <testcase name="testStartTimer" classname="com.example.pomodoro.model.TimerTest" time="0.001"/>
+  <testcase name="" classname="com.example.pomodoro.controller.TimerControllerTest" time="2.159">
+    <error type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "java.lang.Class.getName()" because "found" is null
+]]></error>
+    <system-out><![CDATA[15:13:14.312 [main] DEBUG org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [TimerControllerTest]: using SpringBootContextLoader
+15:13:14.344 [main] DEBUG org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.example.pomodoro.controller.TimerControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+15:13:14.346 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.example.pomodoro.controller.TimerControllerTest]: TimerControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+15:13:14.633 [main] DEBUG org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper - Using ContextCustomizers for test class [TimerControllerTest]: [ImportsContextCustomizer, ExcludeFilterContextCustomizer, DuplicateJsonObjectContextCustomizer, MockitoContextCustomizer, DisableAutoConfigurationContextCustomizer, DisableObservabilityContextCustomizer, TypeExcludeFiltersContextCustomizer, PropertyMappingContextCustomizer, Customizer]
+]]></system-out>
+  </testcase>
 </testsuite>
