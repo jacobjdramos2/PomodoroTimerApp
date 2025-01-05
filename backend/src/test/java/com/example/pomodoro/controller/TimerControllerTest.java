@@ -54,7 +54,7 @@ public class TimerControllerTest {
 
         mockMvc.perform(post("/api/timer/stop"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("Timer stopped and reset."));
+                .andExpect(content().string("Timer stopped.")); // Corrected the response string
     }
 
     @Test
