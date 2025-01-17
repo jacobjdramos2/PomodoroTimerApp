@@ -68,16 +68,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-### Summary of Key Functions
-
-Backend
-    Controllers handle HTTP requests (e.g., start, stop, pause, status).
-    Services implement the logic for managing the timer's state
-    Models represent the data (e.g., Timer class with duration and state).
-    TimerState tracks whether the timer is running, paused, or stopped.
-
-Frontend
-    Components like Timer.js, Controls.js, and TaskInput.js allow interaction with the timer
-    Services make API calls to the backend to start, stop, and get the status of the timer
-    Context/State Management

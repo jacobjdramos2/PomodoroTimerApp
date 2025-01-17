@@ -1,1 +1,0 @@
-// Component to display the Pomodor timer and control the UI.
