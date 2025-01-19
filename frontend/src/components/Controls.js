@@ -1,4 +1,3 @@
-// This will display the start, pause, and stop buttons
 import React from 'react';
 
 const Controls = ({ onStart, onPause, onStop }) => {

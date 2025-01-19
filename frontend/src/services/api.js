@@ -1,42 +1,40 @@
+// src/services/api.js
 import axios from 'axios';
 
-const API_BASE_URL = ' http://localhost:3000';
- export const startTimer = async () => {
-    try {
-        const response = await axios.post(`${API_BASE_URL}/timer/start`);
-        return response.data;
-    } catch (error) {
-        console.error('Error starting the timr:', error);
-        throw error;
-    }
- };
+const API_URL = 'your-backend-url-here'; // Replace with your backend URL
 
- export const pauseTimer = async () => {
+export const startTimer = async () => {
     try {
-        const response = await axios.post(`${API_BASE_URL}/timer/pause`);
-        return response.data;
+        const response = await axios.post(`${API_URL}/start`);
+        return response.data; // You can modify based on your API response
     } catch (error) {
-        console.error('Error pausing the timer:', error);
-        throw error;
+        console.error('Error starting timer:', error);
     }
- };
+};
 
- export const stopTimer = async () => {
+export const pauseTimer = async () => {
     try {
-        const response = await axios.post(`${API_BASE_URL}/timer/stop`);
-        return response.data;
+        const response = await axios.post(`${API_URL}/pause`);
+        return response.data; // Modify based on your API response
     } catch (error) {
-        console.error('Error stopping the timer:', error);
-        throw error;
+        console.error('Error pausing timer:', error);
     }
- };
+};
 
- export const getTimerStatus = async () => {
+export const stopTimer = async () => {
     try {
-        const response = await axios.get(`${API_BASE_URL}/timer/status`);
-        return response.data;
+        const response = await axios.post(`${API_URL}/stop`);
+        return response.data; // Modify based on your API response
     } catch (error) {
-        console.error('Error getting the timer status:', error);
-        throw error;
+        console.error('Error stopping timer:', error);
     }
- };
+};
+
+export const getTimerStatus = async () => {
+    try {
+        const response = await axios.get(`${API_URL}/status`);
+        return response.data; // Modify based on your API response
+    } catch (error) {
+        console.error('Error fetching timer status:', error);
+    }
+};
