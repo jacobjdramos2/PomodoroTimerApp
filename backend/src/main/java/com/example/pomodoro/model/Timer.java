@@ -1,80 +1,51 @@
-/*
- * Represents the timer's properties, like duration, status, and remainingTime
- */
 package com.example.pomodoro.model;
 
 public class Timer {
-    // Timer status
     public enum State {
         RUNNING, PAUSED, STOPPED
     }
-    
-    private int status = 0;                 // Current time on timer
-    private int duration = 3600;            // 3600 seconds for 1 hour
-    private State state = State.STOPPED;    // Timer state
 
-    // startTime: Time when the timer started
-    public int startTime() { return status; };
+    private int status = 0;                 // Current elapsed time in seconds
+    private final int duration = 3600;      // Default: 1-hour session (3600 seconds)
+    private State state = State.STOPPED;
 
-    // endTime: Time when the timer ends (based on the duration)
-    public int endTime() {
-        if (state == State.RUNNING) {
-            return status;
-        } 
-
-        return duration;
-    }
-
-    // remainingTime: Time left in the session (in ms)
-    public int remainingTime() { return duration - status; }
-
-    // isPaused: Whether the timer is paused
+    // Getters for status
+    public int getStartTime() { return status; }
+    public int getEndTime() { return status + (duration - status); }
+    public int getRemainingTime() { return Math.max(duration - status, 0); }
     public boolean isPaused() { return state == State.PAUSED; }
-
-    // state: The current state (RUNNING, PAUSED, STOPPED)
     public String getState() { return state.toString(); }
 
-    // reset(): Resets the timer to the initial state.
+    // Reset timer
     public void reset() {
         status = 0;
         state = State.STOPPED;
-    } 
-
-    // start 
-    public void start() {
-        if (state != State.RUNNING) state = State.RUNNING;
     }
 
-    // pause 
-    public void pause() {
-        if (state == State.RUNNING) state = State.PAUSED;
-    }
-
-    // resume
-    public void resume() {
-        if (state == State.PAUSED) state = State.RUNNING;
-    }
-
-    // stop
+    // Timer controls
+    public void start() { if (state != State.RUNNING) state = State.RUNNING; }
+    public void pause() { if (state == State.RUNNING) state = State.PAUSED; }
+    public void resume() { if (state == State.PAUSED) state = State.RUNNING; }
     public void stop() {
         state = State.STOPPED;
         status = 0;
     }
 
-    // Updaets the status of the timer (ex. incrementing time when running)
-    public void updateStatus(int timeElasped) {
+    // Update timer status (increment time while running)
+    public void updateStatus(int timeElapsed) {
         if (state == State.RUNNING) {
-            status += timeElasped;
-            if (status == duration) {
+            status += timeElapsed;
+            if (status >= duration) {
                 status = duration;
-                state = State.STOPPED;
+                state = State.STOPPED; // Auto-stop when duration ends
             }
         }
     }
 
-    // getStatus(): Returns a string or JSON object with current timer status
+    // Return JSON-formatted status
     public String getStatus() {
-        return "Status (seconds): " + status + 
-        "\n Sate: " + state;
+        return "{ \"elapsedTime\": " + status + 
+               ", \"remainingTime\": " + getRemainingTime() + 
+               ", \"state\": \"" + state + "\" }";
     }
 }

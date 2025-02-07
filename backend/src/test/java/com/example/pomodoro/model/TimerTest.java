@@ -18,8 +18,8 @@ public class TimerTest {
 
     @Test
     public void testInitialState() {
-        assertEquals(0, timer.startTime(), "Start time should be 0");
-        assertEquals(3600, timer.remainingTime(), "Remaining time should be 3600 seconds initially");
+        assertEquals(0, timer.getStartTime(), "Start time should be 0");
+        assertEquals(3600, timer.getRemainingTime(), "Remaining time should be 3600 seconds initially");
         assertEquals("STOPPED", timer.getState(), "Timer should start in STOPPED state");
     }
 
@@ -49,7 +49,7 @@ public class TimerTest {
         timer.start();
         timer.updateStatus(10);  // simulate 10 seconds elapsed
         timer.reset();
-        assertEquals(0, timer.startTime(), "Status should reset to 0");
+        assertEquals(0, timer.getStartTime(), "Status should reset to 0");
         assertEquals("STOPPED", timer.getState(), "Timer state should reset to STOPPED");
     }
 
@@ -57,15 +57,15 @@ public class TimerTest {
     public void testUpdateStatus() {
         timer.start();
         timer.updateStatus(10); // simulate 10 seconds elapsed
-        assertEquals(10, timer.startTime(), "Status should be updated to 10");
-        assertEquals(3590, timer.remainingTime(), "Remaining time should decrease accordingly");
+        assertEquals(10, timer.getStartTime(), "Status should be updated to 10");
+        assertEquals(3590, timer.getRemainingTime(), "Remaining time should decrease accordingly");
     }
 
     @Test
     public void testStopTimer() {
         timer.start();
         timer.stop();
-        assertEquals(0, timer.startTime(), "Status should reset to 0 after stopping");
+        assertEquals(0, timer.getStartTime(), "Status should reset to 0 after stopping");
         assertEquals("STOPPED", timer.getState(), "Timer state should be STOPPED after stop");
     }
 }
