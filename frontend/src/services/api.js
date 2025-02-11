@@ -1,7 +1,7 @@
 // src/services/api.js
 import axios from 'axios';
 
-const API_URL = 'your-backend-url-here'; // Replace with your backend URL
+const API_URL = 'http://localhost:8080/timer'; // Change if your backend runs on a different port
 
 export const startTimer = async () => {
     try {

@@ -1,8 +1,11 @@
 package com.example.pomodoro.service;
 
+import org.springframework.stereotype.Service;
+
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Service // Marks this as a Spring service
 public class TimerService {
 
     // Timer states
@@ -10,21 +13,20 @@ public class TimerService {
         RUNNING, PAUSED, STOPPED
     }
 
-    private AtomicInteger currentTime;              // The curent time in seconds
-    private final int duration;                     // Total duration of the timer (in seconds)
-    private State state;                            // Current state of the timer
-    private ScheduledExecutorService scheduler;     // Executor for managing timer tasks
-    private ScheduledFuture<?> scheduledTask;       // Future for the countdown task
+    private AtomicInteger currentTime;            // The current time in seconds
+    private int duration = 1500;                  // Default: 25 minutes (1500 seconds)
+    private State state;                          // Current state of the timer
+    private ScheduledExecutorService scheduler;   // Executor for managing timer tasks
+    private ScheduledFuture<?> scheduledTask;     // Future for the countdown task
 
     // Constructor to initialize the timer
-    public TimerService(int durationInSeconds) {
-        this.duration = durationInSeconds;
-        this.currentTime = new AtomicInteger(0);          // Start at 0 seconds
+    public TimerService() {
+        this.currentTime = new AtomicInteger(0);  // Start at 0 seconds
         this.state = State.STOPPED;
-        this.scheduler = Executors.newSingleThreadScheduledExecutor(); // Using a single thread for timer
+        this.scheduler = Executors.newSingleThreadScheduledExecutor();
     }
 
-    // start(): Initializes and starts the timer with the given durations.
+    // Start the timer
     public void start() {
         if (state == State.RUNNING) {
             System.out.println("Timer is already running.");
@@ -36,55 +38,41 @@ public class TimerService {
         System.out.println("Timer started.");
     }
 
-    // pause(): Pauses the timer and saves the current state.
+    // Pause the timer
     public void pause() {
         if (state == State.RUNNING) {
-            scheduledTask.cancel(false); // Cancel current task without interrupting it
+            scheduledTask.cancel(false);
             state = State.PAUSED;
             System.out.println("Timer paused.");
         }
     }
 
-    // stop(): Stops the timer and resets it to its initial state.
+    // Stop the timer and reset it
     public void stop() {
         if (state == State.RUNNING || state == State.PAUSED) {
-            scheduledTask.cancel(false);
+            if (scheduledTask != null) {
+                scheduledTask.cancel(false);
+            }
             currentTime.set(0);
             state = State.STOPPED;
             System.out.println("Timer stopped and reset.");
         }
-
     }
 
-    // getStatus(): Returns the current state of the timer (running, paused, or stopped).
+    // Get the current timer status
     public String getStatus() {
-        return "Current State: " + state + ", Time elasped: " + currentTime.get() + " seconds.";
+        return String.format("Current State: %s, Time elapsed: %d seconds.", state, currentTime.get());
     }
 
-    // updateTime(): Updates the currrent time by 1 second
+    // Update the time if the timer is running
     private void updateTime() {
         if (currentTime.get() < duration) {
             currentTime.incrementAndGet();
+            System.out.println("Time Updated: " + currentTime.get()); // 🔥 Debugging log
         } else {
             stop();
             System.out.println("Timer reached its duration and stopped.");
         }
     }
-
-    // Tip: Use ScheduledExecutorService or Timer for managing timer tasks.
-
-    // Helper method to test the timer behavior
-    public static void main(String[] args) throws InterruptedException {
-        TimerService timerService = new TimerService(10); // 10 seconds timer
-        timerService.start();
-        Thread.sleep(5000); // Wait 5 seconds
-        System.out.println(timerService.getStatus());
-        timerService.pause();
-        Thread.sleep(2000);
-        System.out.println(timerService.getStatus());
-        timerService.start();
-        Thread.sleep(4000);
-        System.out.println(timerService.getStatus());
-        timerService.stop();
-    }
+    
 }

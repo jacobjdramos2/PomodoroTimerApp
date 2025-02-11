@@ -1,49 +1,38 @@
 package com.example.pomodoro.controller;
 
 import com.example.pomodoro.service.TimerService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
-@RequestMapping("/api/timer")
+@RequestMapping("/timer")
+@CrossOrigin(origins = "*") // Allow frontend access
 public class TimerController {
 
+    private final TimerService timerService;
+
     @Autowired
-    private TimerService timerService;
-
-    // Endpoint to start the timer
-    @PostMapping("/start")
-    public String startTimer() {
-        timerService.start();
-        return "Timer started.";
+    public TimerController(TimerService timerService) {
+        this.timerService = timerService;
     }
 
-    // Endpoint to pause the timer
-    @PostMapping("/pause")
-    public String pauseTimer() {
-        timerService.pause();
-        return "Timer paused.";
-    }
-
-    // Endpoint to stop the timer
-    @PostMapping("/stop")
-    public String stopTimer() {
-        timerService.stop();
-        return "Timer stopped.";
-    }
-
-    // Endpoint to get the timer's current status
-    @GetMapping("/status")  // Changed from @PostMapping to @GetMapping
-    public String getTimerStatus() {
+    @GetMapping("/status")
+    public String getStatus() {
         return timerService.getStatus();
     }
 
-    /*
-     * EXPLANATION
-     * @RestController: Handles RESTful HTTP requests and automatically serializes responses into JSON or text.
-     * @RequestMapping("/api/timer"): Sets the base URL for all endpoints in this controller.
-     * @PostMapping: Used for operations that modify the server's state (start, pause, stop).
-     * @GetMapping: Used for retrieving information (status).
-     * @Autowired: Injects TimerService to handle business logic.
-     */
+    @PostMapping("/start")
+    public void startTimer() {
+        timerService.start();
+    }
+
+    @PostMapping("/pause")
+    public void pauseTimer() {
+        timerService.pause();
+    }
+
+    @PostMapping("/stop")
+    public void stopTimer() {
+        timerService.stop();
+    }
 }
