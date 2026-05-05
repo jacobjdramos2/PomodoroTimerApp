@@ -1,1 +1,18 @@
-node_modules
+# Node
+node_modules/
+frontend/node_modules/
+
+# Java/Maven
+target/
+backend/target/
+
+# Environment files
+.env
+*.env
+
+# IDE/editor files
+.idea/
+.vscode/
+
+# OS files
+.DS_Store

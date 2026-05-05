@@ -1,63 +1,153 @@
-/* Center everything - General Styling for the App Container */
+/* General App Layout */
 .app {
   text-align: center;
   font-family: Arial, sans-serif;
-  background: linear-gradient(#e66465, #9198e5);
+  background: linear-gradient(135deg, #e66465, #9198e5);
   color: white;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 20px;
 }
 
-/* Timer Display Styling */
+/* App Card */
+.app-card {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  padding: 40px;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Title */
+.app-title {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+/* Session Text */
+.session-text {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  opacity: 0.9;
+}
+
+/* Timer Display */
 .timer {
-  font-size: 4rem;
+  font-size: 5rem;
   font-weight: bold;
-  margin: 20px 0;
-  padding: 10px;
+  margin: 25px 0;
+  padding: 20px;
   border: 4px solid #61dafb;
-  border-radius: 10px;
+  border-radius: 18px;
   display: inline-block;
-  width: 200px;
+  width: 260px;
   text-align: center;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 20px rgba(97, 218, 251, 0.4);
 }
 
-/* Button Styling */
+/* Controls */
 .controls {
   display: flex;
-  gap: 10px;
-  margin-top: 20px;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 25px;
+  flex-wrap: wrap;
 }
 
+/* Buttons */
 button {
-  padding: 10px 20px;
-  font-size: 1.2rem;
+  padding: 12px 22px;
+  font-size: 1rem;
+  font-weight: bold;
   border: none;
-  border-radius: 5px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.2s ease;
 }
 
-/* Button Hover Effect */
+/* Hover Effects */
 button:hover {
-  opacity: 0.8;
+  transform: translateY(-2px);
+  opacity: 0.9;
 }
 
-/* Button Colors (Start, Pause, Stop) */
+/* Start Button */
 button:first-child {
-  background-color: #28a745; /* Green - Start */
+  background-color: #28a745;
   color: white;
 }
 
+/* Pause Button */
 button:nth-child(2) {
-  background-color: #ffc107; /* Yellow - Pause */
+  background-color: #ffc107;
   color: black;
 }
 
+/* Stop Button */
 button:last-child {
-  background-color: #dc3545; /* Red - Stop */
+  background-color: #dc3545;
   color: white;
+}
+
+.task-input-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.task-input-container input {
+  width: 180px;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.task-list li {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.task-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.completed-task span {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.task-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.task-actions button {
+  padding: 8px 12px;
+  font-size: 0.8rem;
 }
