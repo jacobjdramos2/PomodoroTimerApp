@@ -1,5 +1,6 @@
-com/example/pomodoro/application/HomeController.class
 com/example/pomodoro/controller/TimerController.class
 com/example/pomodoro/service/TimerService$State.class
-com/example/pomodoro/application/PomodoroApplication.class
+com/example/pomodoro/PomodoroApplication.class
+com/example/pomodoro/HomeController.class
+com/example/pomodoro/service/TimerService$SessionType.class
 com/example/pomodoro/service/TimerService.class

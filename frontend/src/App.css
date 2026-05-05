@@ -2,7 +2,7 @@
 .app {
   text-align: center;
   font-family: Arial, sans-serif;
-  background-color: #1e1e2f;
+  background: linear-gradient(#e66465, #9198e5);
   color: white;
   min-height: 100vh;
   display: flex;

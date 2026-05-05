@@ -2,23 +2,22 @@ package com.example.pomodoro.controller;
 
 import com.example.pomodoro.service.TimerService;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/timer")
-@CrossOrigin(origins = "*") // Allow frontend access
+@CrossOrigin(origins = "*")
 public class TimerController {
 
-    private final TimerService timerService;
-
-    @Autowired
-    public TimerController(TimerService timerService) {
-        this.timerService = timerService;
-    }
+    private final TimerService timerService = new TimerService();
 
     @GetMapping("/status")
-    public String getStatus() {
-        return timerService.getStatus();
+    public Map<String, Object> getStatus() {
+        return Map.of(
+            "state", timerService.getState(),
+            "remainingTime", timerService.getTimeLeft(),
+            "sessionType", timerService.getSessionType()
+        );
     }
 
     @PostMapping("/start")

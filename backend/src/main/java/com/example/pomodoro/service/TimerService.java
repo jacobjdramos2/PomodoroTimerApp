@@ -1,78 +1,93 @@
 package com.example.pomodoro.service;
 
-import org.springframework.stereotype.Service;
-
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Service // Marks this as a Spring service
 public class TimerService {
-
-    // Timer states
-    private enum State {
+    public enum State {
         RUNNING, PAUSED, STOPPED
     }
 
-    private AtomicInteger currentTime;            // The current time in seconds
-    private int duration = 1500;                  // Default: 25 minutes (1500 seconds)
-    private State state;                          // Current state of the timer
-    private ScheduledExecutorService scheduler;   // Executor for managing timer tasks
-    private ScheduledFuture<?> scheduledTask;     // Future for the countdown task
+    public enum SessionType {
+        WORK, SHORT_BREAK, LONG_BREAK
+    }
 
-    // Constructor to initialize the timer
+    private AtomicInteger currentTime;
+    private State state;
+    private SessionType sessionType;
+    private int sessionCount;
+    private ScheduledExecutorService scheduler;
+    private ScheduledFuture<?> scheduledTask;
+
+    private static final int WORK_DURATION = 1500;
+    private static final int SHORT_BREAK_DURATION = 300;
+    private static final int LONG_BREAK_DURATION = 900;
+
     public TimerService() {
-        this.currentTime = new AtomicInteger(0);  // Start at 0 seconds
+        this.currentTime = new AtomicInteger(WORK_DURATION);
         this.state = State.STOPPED;
+        this.sessionType = SessionType.WORK;
+        this.sessionCount = 0;
         this.scheduler = Executors.newSingleThreadScheduledExecutor();
     }
 
-    // Start the timer
     public void start() {
-        if (state == State.RUNNING) {
-            System.out.println("Timer is already running.");
-            return;
-        }
+        if (state == State.RUNNING) return;
 
         state = State.RUNNING;
         scheduledTask = scheduler.scheduleAtFixedRate(this::updateTime, 0, 1, TimeUnit.SECONDS);
-        System.out.println("Timer started.");
     }
 
-    // Pause the timer
     public void pause() {
-        if (state == State.RUNNING) {
+        if (state == State.RUNNING && scheduledTask != null) {
             scheduledTask.cancel(false);
             state = State.PAUSED;
-            System.out.println("Timer paused.");
         }
     }
 
-    // Stop the timer and reset it
     public void stop() {
-        if (state == State.RUNNING || state == State.PAUSED) {
-            if (scheduledTask != null) {
-                scheduledTask.cancel(false);
-            }
-            currentTime.set(0);
-            state = State.STOPPED;
-            System.out.println("Timer stopped and reset.");
+        if (scheduledTask != null) {
+            scheduledTask.cancel(false);
         }
+        state = State.STOPPED;
+        currentTime.set(WORK_DURATION);
+        sessionType = SessionType.WORK;
+        sessionCount = 0;
     }
 
-    // Get the current timer status
-    public String getStatus() {
-        return String.format("Current State: %s, Time elapsed: %d seconds.", state, currentTime.get());
-    }
-
-    // Update the time if the timer is running
     private void updateTime() {
-        if (currentTime.get() < duration) {
-            currentTime.incrementAndGet();
-            System.out.println("Time Updated: " + currentTime.get()); // 🔥 Debugging log
+        if (currentTime.get() > 0) {
+            currentTime.decrementAndGet();
         } else {
-            stop();
-            System.out.println("Timer reached its duration and stopped.");
+            switchSession();
         }
     }
-    
+
+    private void switchSession() {
+        if (sessionType == SessionType.WORK) {
+            sessionCount++;
+            if (sessionCount % 4 == 0) {
+                sessionType = SessionType.LONG_BREAK;
+                currentTime.set(LONG_BREAK_DURATION);
+            } else {
+                sessionType = SessionType.SHORT_BREAK;
+                currentTime.set(SHORT_BREAK_DURATION);
+            }
+        } else {
+            sessionType = SessionType.WORK;
+            currentTime.set(WORK_DURATION);
+        }
+    }
+
+    public int getTimeLeft() {
+        return currentTime.get();
+    }
+
+    public String getSessionType() {
+        return sessionType.toString();
+    }
+
+    public String getState() {
+        return state.toString();
+    }
 }
